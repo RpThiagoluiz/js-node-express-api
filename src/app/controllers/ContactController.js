@@ -20,12 +20,58 @@ class ContactController {
     response.json(contact);
   }
 
-  store() {
-    // Criar novo registro
+  async store(request, response) {
+    // Criar um registro
+    const {
+      name, email, phone, category_id,
+    } = request.body;
+
+    if (!name || !email) {
+      return response.status(400).json({ error: 'Require fields can not be empty, name and e-mail ' });
+    }
+
+    const contactExists = await ContactRepository.findByEmail(email);
+
+    if (contactExists) {
+      return response.status(400).json({ error: 'This e-mail is already in use' });
+    }
+
+    const contact = await ContactRepository.create({
+      name, email, phone, category_id,
+    });
+
+    return response.json(contact);
   }
 
-  update() {
+  async update(request, response) {
     // Editar novo registro
+    const { id } = request.params;
+    const {
+      name, email, phone, category_id,
+    } = request.body;
+
+    if (!name || !email) {
+      return response.status(400).json({ error: 'Require fields can not be empty, name and e-mail ' });
+    }
+
+    const contactIdExists = await ContactRepository.findById(id);
+
+    if (!contactIdExists) {
+      // 404: not found
+      return response.status(404).json({ error: 'User not found' });
+    }
+
+    const contactEmailExists = await ContactRepository.findByEmail(email);
+
+    if (contactEmailExists && contactEmailExists.id !== id) {
+      return response.status(400).json({ error: 'This e-mail is already in use' });
+    }
+
+    const contact = await ContactRepository.update(id, {
+      name, email, phone, category_id,
+    });
+
+    return response.json(contact);
   }
 
   async delete(request, response) {

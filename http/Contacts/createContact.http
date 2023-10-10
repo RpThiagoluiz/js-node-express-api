@@ -1,0 +1,10 @@
+POST http://localhost:3000/contacts
+Content-Type: application/json
+
+{
+  "name": "Thiago TEST",
+  "email": "test@gmail.com",
+  "phone": "12312313",
+  "category_id": "dsadadasd-xczc-sd"
+}
+
