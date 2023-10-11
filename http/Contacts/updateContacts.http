@@ -1,9 +1,9 @@
-PUT  http://localhost:3000/contacts/a616d4f0-e31f-41be-b615-386f8eb289a0
+PUT  http://localhost:3000/contacts/4e7a9fb1-37ad-47c7-adac-c550384bb75b
 Content-Type: application/json
 
 {
   "name": "Thiago TEST",
   "email": "test@gmail.com",
   "phone": "12312313",
-  "category_id": "dsadadasd-xczc-sd"
+  "category_id": "d6a47c33-59df-4d0a-97cc-625c61c914a9"
 }
